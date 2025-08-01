@@ -1,0 +1,50 @@
+# Flask SAML Authentication Project with Google Workspace
+
+## 🔐 Overview
+Developed and deployed a secure Single Sign-On (SSO) system for a Flask web application using SAML 2.0, integrating Google Workspace as the Identity Provider (IdP). This project simulates a real-world federated identity flow used in enterprise environments.
+
+## ✅ Key Features
+- Integrated Google Workspace SAML metadata for user authentication  
+- Built and ran Flask application with support for HTTPS using Ngrok  
+- Configured settings.json and advanced_settings.json for the SAML toolkit  
+- Parsed metadata from GoogleIDPMetadata.xml using a Python script  
+- Used digital certificates and private keys for signature validation  
+- Verified successful login with email returned and user data displayed  
+- Fixed multiple common SAML errors including:
+  - `invalid_response`
+  - Signature validation failed
+  - Mismatched entityID or ACS URLs
+
+## 🛠️ Tools & Technologies
+- Python 3  
+- Flask  
+- python3-saml  
+- Ngrok (HTTPS tunneling)  
+- Google Workspace (Admin Console for IdP)  
+- JSON configuration files  
+- Linux / Ubuntu Terminal
+
+## 📁 Files Used
+- `app.py` — Main Flask application with SAML routes  
+- `settings.json` — Contains Flask app’s SAML configuration  
+- `advanced_settings.json` — Parsed from Google metadata XML  
+- `GoogleIDPMetadata.xml` — Downloaded from Google Admin  
+- `cert.pem` & `key.pem` — Certificate and private key for signature validation
+
+## 🔒 Authentication Flow Summary
+1. User visits `/sso/login` endpoint in Flask app  
+2. Redirected to Google Workspace SAML login  
+3. On success, user is redirected to `/sso/acs` with a SAML assertion  
+4. Assertion is validated using public certificate  
+5. Email and user info is displayed on home page after successful login
+
+## 💡 Skills Demonstrated
+- SAML Authentication and Federated Identity  
+- Google Workspace Identity Management  
+- Secure certificate-based login  
+- Debugging login errors  
+- Deploying Flask apps with real-world auth  
+- JSON config and metadata handling
+
+## ✅ Status
+Project completed and working — verified authentication using Google Workspace SSO and successfully parsed metadata with validated response.
