@@ -1,0 +1,33 @@
+{
+  "security": {
+    "authnRequestsSigned": false,
+    "logoutRequestSigned": false,
+    "logoutResponseSigned": false,
+    "signMetadata": false,
+    "wantMessagesSigned": false,
+    "wantAssertionsSigned": false,
+    "wantAssertionsEncrypted": false,
+    "wantNameId": true,
+    "wantNameIdEncrypted": false,
+    "requestedAuthnContext": true,
+    "wantXMLValidation": true,
+    "signatureAlgorithm": "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+  },
+  "contactPerson": {
+    "technical": {
+      "givenName": "Your Name",
+      "emailAddress": "your@email.com"
+    },
+    "support": {
+      "givenName": "Your Name",
+      "emailAddress": "your@email.com"
+    }
+  },
+  "organization": {
+    "en-US": {
+      "name": "My Flask App",
+      "displayname": "Flask SSO",
+      "url": "http://localhost:5000"
+    }
+  }
+}

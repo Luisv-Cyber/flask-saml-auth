@@ -1,0 +1,18 @@
+{
+  "strict": true,
+  "debug": true,
+  "idp": {
+    "entityId": "https://accounts.google.com/o/saml2?idpid=YOUR_ID_HERE",
+    "singleSignOnService": {
+      "url": "https://accounts.google.com/o/saml2/idp?idpid=YOUR_ID_HERE",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "x509cert": "YOUR_LONG_CERT_HERE"
+  },
+  "security": {
+    "wantAssertionsSigned": true
+  },
+  "sp": {
+    "NameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  }
+}
