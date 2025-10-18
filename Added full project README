@@ -1,50 +1,126 @@
-# Flask SAML Authentication Project with Google Workspace
+# 🔐 Flask SAML Authentication with Google Workspace
 
-## 🔐 Overview
-Developed and deployed a secure Single Sign-On (SSO) system for a Flask web application using SAML 2.0, integrating Google Workspace as the Identity Provider (IdP). This project simulates a real-world federated identity flow used in enterprise environments.
+### 🧠 Summary
+Implemented and configured **Single Sign-On (SSO)** authentication for a Flask web application using **SAML 2.0** and **Google Workspace** as the Identity Provider (IdP).  
+This project demonstrates identity federation, certificate handling, and troubleshooting of real-world authentication errors.
 
-## ✅ Key Features
-- Integrated Google Workspace SAML metadata for user authentication  
-- Built and ran Flask application with support for HTTPS using Ngrok  
-- Configured settings.json and advanced_settings.json for the SAML toolkit  
-- Parsed metadata from GoogleIDPMetadata.xml using a Python script  
-- Used digital certificates and private keys for signature validation  
-- Verified successful login with email returned and user data displayed  
-- Fixed multiple common SAML errors including:
-  - `invalid_response`
-  - Signature validation failed
-  - Mismatched entityID or ACS URLs
+---
 
-## 🛠️ Tools & Technologies
-- Python 3  
-- Flask  
-- python3-saml  
-- Ngrok (HTTPS tunneling)  
-- Google Workspace (Admin Console for IdP)  
-- JSON configuration files  
-- Linux / Ubuntu Terminal
+## ⚙️ Tools & Technologies
+| Category | Tools Used |
+|-----------|-------------|
+| **OS** | Ubuntu 20.04 LTS |
+| **Framework** | Flask (Python 3) |
+| **Identity Protocol** | SAML 2.0 |
+| **Admin Platform** | Google Workspace Admin Console |
+| **Utilities** | Ngrok (for HTTPS tunneling), Bash |
+| **Security** | x509 Certificates, Private Keys |
 
-## 📁 Files Used
-- `app.py` — Main Flask application with SAML routes  
-- `settings.json` — Contains Flask app’s SAML configuration  
-- `advanced_settings.json` — Parsed from Google metadata XML  
-- `GoogleIDPMetadata.xml` — Downloaded from Google Admin  
-- `cert.pem` & `key.pem` — Certificate and private key for signature validation
+---
 
-## 🔒 Authentication Flow Summary
-1. User visits `/sso/login` endpoint in Flask app  
-2. Redirected to Google Workspace SAML login  
-3. On success, user is redirected to `/sso/acs` with a SAML assertion  
-4. Assertion is validated using public certificate  
-5. Email and user info is displayed on home page after successful login
+## 🎯 Objective
+Simulate a **secure SAML SSO authentication flow** by integrating Flask with Google Workspace.  
 
-## 💡 Skills Demonstrated
-- SAML Authentication and Federated Identity  
-- Google Workspace Identity Management  
-- Secure certificate-based login  
-- Debugging login errors  
-- Deploying Flask apps with real-world auth  
-- JSON config and metadata handling
+**Goals:**
+- Parse SAML metadata from Google Workspace  
+- Configure Service Provider settings (`settings.json`, `advanced_settings.json`)  
+- Debug authentication errors (issuer mismatch, signature validation, missing files)  
+- Successfully authenticate a Google Workspace user into Flask via HTTPS  
 
-## ✅ Status
-Project completed and working — verified authentication using Google Workspace SSO and successfully parsed metadata with validated response.
+---
+
+## 🧱 Implementation Steps
+
+### 1️⃣ Configure Google Workspace as Identity Provider (IdP)
+- Created a Google Workspace Admin account  
+- Navigated to **Apps → Web and mobile apps → Custom SAML app**  
+- Configured new SAML app and downloaded the **GoogleIDPMetadata.xml** file  
+
+📸 *Google Workspace setup:*
+
+![SAML Setup Screenshot](Luisv-Cyber_-_Personal_-_Microsoft_Edge_8_2_2025_2_45_56_PM.png)
+![Metadata Screenshot](Luisv-Cyber_-_Personal_-_Microsoft_Edge_8_2_2025_2_46_10_PM.png)
+
+---
+
+### 2️⃣ Create and Secure the Flask Project Environment
+- Transferred the `GoogleIDPMetadata.xml` file securely to Ubuntu  
+- Set up a **Python virtual environment (venv)** for isolation  
+- Created the project folder: `saml-flask-app`  
+
+**Key files added:**
+| File | Purpose |
+|------|----------|
+| `app.py` | Main Flask app entry point |
+| `saml/routes.py` | Routes for login, logout, metadata |
+| `settings.json` | Service Provider configuration |
+| `advanced_settings.json` | Debug and strictness controls |
+| `cert.pem`, `key.pem` | SSL certificates for HTTPS |
+| `GoogleIDPMetadata.xml` | Metadata from Google Workspace |
+
+📸 *Project directory setup:*
+
+![Project Folder Screenshot](Screenshot_from_2025-08-02_15-09-28.png)
+
+---
+
+### 3️⃣ 🧰 Troubleshooting & Fixes
+During setup, I encountered several issues that deepened my understanding of SAML authentication:
+
+| Issue | Root Cause | Resolution |
+|--------|-------------|-------------|
+| **400 Error from Google** | ACS URL mismatch | Matched the ACS URL in Google Workspace & `settings.json` |
+| **Missing `settings.json`** | File not found error | Created file manually with correct SAML JSON schema |
+| **Certificate Load Error** | Flask couldn’t locate `cert.pem` | Moved certs to root & updated Flask route paths |
+| **Entity ID Mismatch** | Case sensitivity (L vs l) | Standardized all SAML Entity IDs |
+
+📸 *Debugging and terminal logs:*
+
+![Flask Logs Screenshot](9074a693-e8dc-4756-be6b-e16d2296444e.png)
+![Metadata Error Screenshot](9702ea46-f290-43ce-adc4-1ac7dbfc285f.png)
+
+---
+
+### 4️⃣ ✅ Successful SSO Authentication
+After corrections, the SAML authentication flow executed without errors.
+
+**Validation:**
+- Flask app successfully redirected to Google Workspace for login  
+- User was authenticated and redirected back to the Flask app  
+- Metadata, certificate, and routes aligned successfully  
+
+📸 *Successful SSO result:*
+
+![SSO Success Screenshot](6240c3f72b2d.ngrok-free.app_and_1_more_page_-_Personal_-_Microsoft_Edge_8_1_2025_12_28_22_PM.png)
+
+---
+
+## 🧩 Flask App Monitoring
+Monitored real-time Flask logs in Linux terminal to:
+- Identify HTTP 400 errors and app crashes  
+- Validate certificate loading and HTTPS binding  
+- Confirm the authentication flow’s state transitions  
+
+📸 *Flask runtime logs:*
+
+![Log Screenshot](Screenshot_from_2025-07-31_18-12-01.png)
+
+---
+
+## 🧠 Key Takeaways
+- Developed deeper understanding of **SAML 2.0** and identity federation  
+- Gained hands-on experience with **Flask app configuration** and certificate handling  
+- Strengthened troubleshooting and debugging for real-world authentication setups  
+- Learned how **Google Workspace integrates with third-party apps** via SAML metadata  
+
+---
+
+## 💬 Reflection
+> This project helped me build practical understanding of how SSO works using SAML 2.0.  
+> From XML parsing to certificate validation, I learned to approach configuration and troubleshooting like a real security engineer.
+
+---
+
+## 🔗 Links
+- [My GitHub Profile](https://github.com/Luisv-Cyber)
+- [Project Repository](https://github.com/Luisv-Cyber/Flask-SAML-Authentication)
